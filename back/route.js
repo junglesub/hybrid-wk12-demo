@@ -1,7 +1,7 @@
 var express = require("express");
 var router = express.Router();
 
-const { sendDiscordBook } = require("./webhook");
+const sendDiscordBook = require("./webhook");
 
 var books = [
   {

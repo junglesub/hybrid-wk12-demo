@@ -27,4 +27,4 @@ async function sendDiscordBook(book) {
     });
 }
 
-export { sendDiscordBook };
+module.exports = sendDiscordBook;
