@@ -1,6 +1,8 @@
 var express = require("express");
 var router = express.Router();
 
+const { sendDiscordBook } = require("./webhook");
+
 var books = [
   {
     author: "J.K. Rowling",
@@ -43,7 +45,10 @@ router.post("/", function (req, res, next) {
   books.push(book);
   id += 1;
   res.sendStatus(200);
+
+  sendDiscordBook(book);
 });
+
 router.put("/:id", function (req, res, next) {
   var index = books.findIndex(function (book) {
     return book.id == req.params.id;
@@ -65,6 +70,25 @@ router.delete("/:id", function (req, res, next) {
 
   books.splice(index, 1);
   res.sendStatus(200);
+});
+
+// Github Demo
+
+router.post("/github", function (req, res, next) {
+  var githubBody = req.body;
+  const issue = githubPayload.issue;
+
+  var book = {
+    id: id,
+    title: issue.title,
+    author: issue.body,
+  };
+
+  books.push(book);
+  id += 1;
+  res.sendStatus(200);
+
+  sendDiscordBook(book);
 });
 
 module.exports = router;
