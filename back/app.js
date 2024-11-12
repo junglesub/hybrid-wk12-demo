@@ -1,6 +1,14 @@
 const express = require("express");
 const app = express();
-const port = 3000;
+const port = 8080;
+
+app.use(express.json());
+
+const cors = require("cors");
+app.use(cors());
+
+var booksRouter = require("./route");
+app.use("/books", booksRouter);
 
 app.get("/", (req, res) => {
   res.send("Hello World!");
